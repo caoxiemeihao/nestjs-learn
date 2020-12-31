@@ -24,6 +24,7 @@
     "@nestjs/common": "^7.5.1",
     "@nestjs/core": "^7.5.1",
     "@nestjs/platform-express": "^7.5.1",
+    "nunjucks": "^3.2.2",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3"
@@ -43,7 +44,6 @@
     "eslint-config-prettier": "7.0.0",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.6.3",
-    "nunjucks": "^3.2.2",
     "prettier": "^2.1.2",
     "supertest": "^6.0.0",
     "ts-jest": "^26.4.3",

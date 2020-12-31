@@ -11,3 +11,6 @@
   1. 接入 typeorm 操作数据库
   2. 自定义装饰器在 ts 中类型没弄明白怎么“反射”出来
   3. nunjucks 模板尚未发挥完整功能 (和 nest.js 整合不是很优雅)
+
+#### 20-12-30
+- nunjucks 集成: https://stackoverflow.com/questions/56057228/how-do-i-use-nunjucks-template-in-nestjs-framework
