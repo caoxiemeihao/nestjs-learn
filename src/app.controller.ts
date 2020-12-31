@@ -7,7 +7,7 @@ export class AppController {
 
   @Get()
   @Redirect('home')
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return { msg: this.appService.getHello() };
   }
 }

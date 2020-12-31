@@ -1,10 +1,28 @@
-import { Injectable, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  Inject,
+  UseGuards,
+  CanActivate,
+  ExecutionContext,
+} from '@nestjs/common';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { Environment, configure } from 'nunjucks';
 import { NunjucksModuleOptions } from './interface';
 import { NUNJUCKS_INJECT_TOKEN } from './constant';
 import { join } from 'path';
+import { Observable } from 'rxjs';
 
+@UseGuards(
+  class {
+    canActivate(
+      context: ExecutionContext,
+    ): boolean | Promise<boolean> | Observable<boolean> {
+      console.log(context);
+      // 不执行
+      return true;
+    }
+  },
+)
 @Injectable()
 export class NunjucksService {
   env: Environment;

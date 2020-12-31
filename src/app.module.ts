@@ -1,21 +1,25 @@
+/* eslint-disable prettier/prettier */
+import { join } from 'path'
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HomeController } from './controllers/home.controller';
-import { LoginController } from './controllers/login.controller';
-import { ViewModule } from './views/view.module';
+import { NunjucksModule } from './nunjucks';
+import { HomeModule } from './home/home.module';
 
 @Module({
   imports: [
-    ViewModule,
+    // 20-12-31 这个目前还用不起来
+    NunjucksModule.forRoot({
+      paths: [join(__dirname, '../views')],
+      options: {},
+    }),
+    HomeModule,
   ],
   controllers: [
     AppController,
-    HomeController,
-    LoginController,
   ],
   providers: [
-    AppService,
+    AppService
   ],
 })
-export class AppModule {}
+export class AppModule { }
