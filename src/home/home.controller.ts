@@ -3,11 +3,11 @@ import { HomeService } from './home.service';
 
 @Controller('home')
 export class HomeController {
-  constructor(private service: HomeService) {}
+  constructor(private homeService: HomeService) {}
 
   @Get()
   @Render('home')
   index() {
-    return this.service.data();
+    return this.homeService.tplData();
   }
 }

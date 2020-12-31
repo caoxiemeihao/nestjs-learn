@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class HomeService {
-  data() {
+  tplData() {
     return { message: 'home.service.HomerSerivce' };
   }
 }
