@@ -2,3 +2,13 @@
   width: 500px;
   margin: 10vh auto 0;
 }
+
+.quotation-bottom::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 99px;
+  background-color: gray;
+  right: 55px;
+  top: 50%;
+}

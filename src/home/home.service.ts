@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 
+@UseGuards()
 @Injectable()
 export class HomeService {
   tplData() {
