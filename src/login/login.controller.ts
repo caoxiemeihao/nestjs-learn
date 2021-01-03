@@ -1,4 +1,5 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { LoginService } from './login.service';
 
 @Controller('login')
@@ -7,7 +8,7 @@ export class LoginController {
 
   @Get()
   @Render('login')
-  index() {
-    return this.loginService.tplData();
+  index(@Req() req: Request) {
+    return this.loginService.tplData(req.cookies.sessionId);
   }
 }

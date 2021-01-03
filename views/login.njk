@@ -2,8 +2,40 @@
 
 {% block head %}
 <title>Login</title>
+<link rel="stylesheet" href="/css/login.css">
 {% endblock %}
 
 {% block body %}
-<code>{{ message }}</code>
+<div class="overflow-hidden">
+  <div class="login-box" id="vue-login-box">
+    <div class="card h-100">
+      <div class="card-header">
+        你好 - {{ user if user.username else '游客' }}
+      </div>
+      <div class="card-body">
+        <div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">用户名</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="username">
+            {# <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> #}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">密码</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" v-model="password">
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" v-model="remember">
+            <label class="form-check-label" for="exampleCheck1">记住密码(7天)</label>
+          </div>
+          <div class="text-center">
+            <button @click="login" class="btn btn-primary btn-sm">登录</button>
+            <button @click="register" class="btn btn-dark btn-sm ml-4">注册</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/login.js"></script>
 {% endblock %}

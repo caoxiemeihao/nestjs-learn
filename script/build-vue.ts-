@@ -1,0 +1,53 @@
+import { join } from 'path';
+import { readdirSync } from 'fs';
+import { compile as compileVue } from '@vue/compiler-dom';
+import { rollup, watch, RollupOptions } from 'rollup';
+
+const glob = require('glob'); // eslint-disable-line @typescript-eslint/no-var-requires
+const argv = require('minimist')(process.argv.slice(2)); // eslint-disable-line
+const vue_src = join(__dirname, '../views/vue');
+const vue_dest = join(__dirname, '../public/vue');
+const vue_tpls = glob.sync(`${vue_src}/**/*.{vue,tsx}`) as Array<string>;
+
+const config: RollupOptions = {
+  input: vue_tpls,
+  output: vue_tpls.map((tpl) => {
+    const file = join(vue_dest, tpl.split('/vue/')[1]); // '/Users/caoxie/Desktop/ypsx/nest_test/views/vue/login/index.vue'
+    // console.log(file);
+    return { file, format: 'iife' };
+  }),
+  external: ['vue'],
+  plugins: [
+    {
+      name: 'vue3-template-compiler',
+      transform(code, filename) {
+        if (!/\.(tsx|vue)$/.test(filename)) return code;
+        // console.log(filename);
+        const compiled = compileVue(code, {
+          sourceMap: true,
+        });
+        return compiled.code;
+        // return {
+        //   code: compiled.code,
+        //   // map: compiled.map as any,
+        // };
+      },
+    },
+  ],
+};
+
+function build(env: 'development' | 'production') {
+  if (argv.watch) {
+    const watcher = watch(config);
+    watcher.on('change', (filename) => {
+      console.log(`change -- ${filename}`);
+    });
+  } else {
+    rollup(config).catch((err) => {
+      console.log('---- 编译报错 ----');
+      console.log(err);
+    });
+  }
+}
+
+build(argv.env);
