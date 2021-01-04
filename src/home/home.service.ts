@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { User } from 'src/interface/user';
 import { SessionService } from 'src/shared/session.service';
+import { getZhihuBillboard } from 'src/utils/zhihu-billboard';
 
 @Injectable()
 export class HomeService {
@@ -12,6 +13,7 @@ export class HomeService {
     return {
       name: 'home.service.HomerSerivce',
       user,
+      zhihuBillboards: getZhihuBillboard(),
     };
   }
 

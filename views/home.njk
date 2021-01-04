@@ -2,8 +2,25 @@
 
 {% block head %}
 <title>Home</title>
+<link rel="stylesheet" href="/css/home.css">
 {% endblock %}
 
 {% block body %}
-{{ user.username }}
+<header>你好 - {{ user.username }}</header>
+<main class="d-flex pt-4 pb-4">
+  <div class="left-content flex-fill"></div>
+  <div class="right-content">
+    <ul class="list-group zhihu-billboard">
+      <li class="list-group-item list-group-item-primary">知乎热榜 - top50</li>
+      {% for item in zhihuBillboards %}
+      {% if loop.index == 1 %}<li class="list-group-item list-group-item-danger">
+      {% elif loop.index == 2 %}<li class="list-group-item list-group-item-warning">
+      {% elif loop.index == 3 %}<li class="list-group-item list-group-item-info">
+      {% else %}<li class="list-group-item">
+      {% endif %}<a href="{{ item.url }}?utm_division=hot_list_page" target="_blank">{{ item.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
 {% endblock %}

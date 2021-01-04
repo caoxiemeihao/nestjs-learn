@@ -1,0 +1,30 @@
+header {
+  background-color: aliceblue;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 15px;
+}
+
+main {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.left-content {
+
+}
+
+.right-content {
+  width: 340px;
+}
+
+.zhihu-billboard  {
+  max-height: 600px;
+  overflow: auto;
+  box-shadow: 0 1px 6px -2px #ccc;
+}
+
+.zhihu-billboard li a {
+  font-size: 12px;
+  line-height: 1.1;
+}
