@@ -1,6 +1,8 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Render, UseInterceptors } from '@nestjs/common';
+import { LoginInterceptor } from 'src/shared/login.interceptor';
 import { HomeService } from './home.service';
 
+@UseInterceptors(LoginInterceptor)
 @Controller('home')
 export class HomeController {
   constructor(private homeService: HomeService) {}
@@ -8,6 +10,6 @@ export class HomeController {
   @Get()
   @Render('home')
   index() {
-    return this.homeService.tplData();
+    return this.homeService.renderData();
   }
 }

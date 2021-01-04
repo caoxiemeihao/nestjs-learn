@@ -1,9 +1,8 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-@UseGuards()
 @Injectable()
 export class HomeService {
-  tplData() {
-    return { message: 'home.service.HomerSerivce' };
+  renderData() {
+    return { name: 'home.service.HomerSerivce' };
   }
 }
