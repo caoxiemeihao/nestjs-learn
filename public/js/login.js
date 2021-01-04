@@ -3,7 +3,7 @@
     data: () => ({
       username: '',
       password: '',
-      remember: true,
+      remember: false,
     }),
     methods: {
       login() {
