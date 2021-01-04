@@ -21,7 +21,7 @@ export class LoginInterceptor implements NestInterceptor {
     const { sessionId } = req.cookies;
 
     if (!sessionId) {
-      // res.redirect('/login'); // 这么做 NestJs 会报错
+      // res.redirect('/login'); // 这么做会提前结束 http 响应，导致之后 NestJs 对 res 的一系列操作引起报错
       res.statusCode = 302;
       res.setHeader('Location', '/login');
       return;

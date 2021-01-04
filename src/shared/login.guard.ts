@@ -13,7 +13,11 @@ export class LoginGuard implements CanActivate {
     const { sessionId } = req.cookies;
 
     if (!sessionId) {
-      res.redirect('/login');
+      // 这么做会提前结束 http 响应，导致之后 NestJs 对 res 的一系列操作失效
+      // res.redirect('/login');
+      // 这么做实现不了重定向，因为后续  NestJs 还会覆盖 statusCode
+      // res.statusCode = 302;
+      // res.setHeader('Location', '/login');
     }
 
     return !!sessionId;
