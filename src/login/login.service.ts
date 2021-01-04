@@ -1,6 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { Response } from 'express';
 import { User } from 'src/interface/user';
+import {
+  ResponseModel,
+  SuccessModel,
+  ErrorModel,
+} from 'src/shared/response.model';
 import { SessionService } from 'src/shared/session.service';
+import { UserService } from 'src/shared/user.service';
 
 @Injectable()
 export class LoginService {
@@ -26,16 +33,37 @@ export class LoginService {
     '在一秒钟内看到本质的人和花半辈子也看不清一件事本质的人,自然是不一样的命运',
   ];
 
-  constructor(private sessionUtil: SessionService) {}
+  constructor(private session: SessionService, private user: UserService) {}
 
-  tplData(
+  renderData(
     sessionId: string,
   ): { name: string; user: User | undefined; quotation: string } {
-    const { session, sessions } = this.sessionUtil.getSession(sessionId);
+    const { session, sessions } = this.session.getSession(sessionId);
     return {
       name: 'login.service.LoginService',
       user: session?.user,
       quotation: this.quotations[~~(Math.random() * this.quotations.length)],
     };
+  }
+
+  login() {}
+
+  register(username: string, password: string): ResponseModel {
+    if (!username) return new ErrorModel({ message: '用户名必填' });
+    if (!password) return new ErrorModel({ message: '密码必填' });
+    if (password.length < 6) {
+      return new ErrorModel({ message: '密码必须大于6位' });
+    }
+
+    this.user.addUser({ username, password });
+    return new SuccessModel({ message: '注册成功' });
+  }
+
+  updateSessionId(res: Response, user?: User) {
+    const sessionId = this.session.genSessionId;
+    if (user) {
+      this.session.setSession(sessionId(), user);
+    }
+    res.cookie('sessionId', sessionId);
   }
 }

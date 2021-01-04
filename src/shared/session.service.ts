@@ -21,6 +21,10 @@ export class SessionService {
 
   constructor() {
     this.store = new FsStore(join(FsStore.STORE_DIR, 'session.json'));
+
+    SessionService.genSessionId.toString = function () {
+      return this(); // 能当方法用，也能到属性用
+    };
   }
 
   getSession(

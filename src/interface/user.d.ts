@@ -4,6 +4,6 @@ export interface User {
   password: string;
   job?: string;
   departement?: string;
-  age: number;
-  sex: 1 | 0;
+  age?: number;
+  sex?: 1 | 0;
 }

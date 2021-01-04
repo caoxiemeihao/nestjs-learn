@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  @Redirect('home')
+  @Redirect('/home')
   getHello() {
     return { msg: this.appService.getHello() };
   }

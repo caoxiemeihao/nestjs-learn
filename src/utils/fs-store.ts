@@ -31,7 +31,7 @@ export class FsStore<D extends KVpair> {
     return this.readFileSync()[key];
   }
 
-  set(key: string, value: any): boolean {
+  set(key: string, value: D): boolean {
     const now = Date.now();
     try {
       const data = this.readFileSync();
@@ -45,7 +45,7 @@ export class FsStore<D extends KVpair> {
 
       // 检测文件夹在不在
       const dir = this.path.slice(0, this.path.lastIndexOf(sep));
-      statSync(dir).isDirectory() || mkdirSync(dir, { recursive: true });
+      existsSync(dir) || mkdirSync(dir, { recursive: true });
 
       // 数据回写
       writeFileSync(this.path, JSON.stringify(data, null, 2));
