@@ -14,8 +14,13 @@
           username: this.username,
           password: this.password,
           remember: this.remember,
+        }).then((res) => {
+          if (!res.success) {
+            alert(res.message);
+            return;
+          }
+          $U.toHome();
         });
-        console.log(this.username, this.password, this.remember);
       },
       register() {
         $U.post('/login/register', {

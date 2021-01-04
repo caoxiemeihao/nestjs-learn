@@ -28,7 +28,7 @@ export class SessionService {
   }
 
   getSession(
-    sessionId: string,
+    sessionId = '',
   ): { session: RecordSession | undefined; sessions: Array<RecordSession> } {
     const sessions = this.store.get() || [];
     // 这里考虑文件IO sessions、session 一口气返回
@@ -38,17 +38,28 @@ export class SessionService {
     };
   }
 
-  setSession(sessionId: string, user: User): boolean {
+  /** 返回 sessionId 或者失败 */
+  addSession(user: User): false | string {
+    let { sessions } = this.getSession();
+    const sessionId = this.genSessionId();
+    sessions = sessions.filter(
+      // 过滤掉老的 session
+      (session) => session.user.username !== user.username,
+    );
+    sessions.push({
+      sessionId,
+      updateTime: Date.now(),
+      user,
+    });
+    return this.store.set('data', sessions) ? sessionId : false;
+  }
+
+  /** 更新 session 中的时间戳 */
+  updateSession(sessionId: string): boolean {
     const { session, sessions } = this.getSession(sessionId);
     if (session) {
       session.updateTime = Date.now();
-    } else {
-      sessions.push({
-        sessionId: this.genSessionId(),
-        updateTime: Date.now(),
-        user,
-      });
     }
-    return this.store.set('data', sessions);
+    return session ? this.store.set('data', sessions) : false;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { User } from 'src/interface/user';
 import {
   ResponseModel,
@@ -33,7 +33,7 @@ export class LoginService {
     '在一秒钟内看到本质的人和花半辈子也看不清一件事本质的人,自然是不一样的命运',
   ];
 
-  constructor(private session: SessionService, private user: UserService) {}
+  constructor(private session: SessionService, private user: UserService) { }
 
   renderData(
     sessionId: string,
@@ -46,7 +46,17 @@ export class LoginService {
     };
   }
 
-  login() {}
+  login(username: string, password: string): ResponseModel {
+    const users = this.user.getUsers();
+    const user = users.find((u) => u.username === username);
+
+    if (!user) return new ErrorModel({ message: '用户不存在' });
+    if (user.password !== password) {
+      return new ErrorModel({ message: '密码输入错误' });
+    }
+
+    return new SuccessModel({ message: '登录成功' });
+  }
 
   register(username: string, password: string): ResponseModel {
     if (!username) return new ErrorModel({ message: '用户名必填' });
@@ -54,16 +64,24 @@ export class LoginService {
     if (password.length < 6) {
       return new ErrorModel({ message: '密码必须大于6位' });
     }
+    const users = this.user.getUsers();
+    if (users.find((u) => u.username === username)) {
+      return new ErrorModel({ message: '用户已经存在' });
+    }
 
     this.user.addUser({ username, password });
     return new SuccessModel({ message: '注册成功' });
   }
 
-  updateSessionId(res: Response, user?: User) {
-    const sessionId = this.session.genSessionId;
-    if (user) {
-      this.session.setSession(sessionId(), user);
-    }
-    res.cookie('sessionId', sessionId);
+  /** 成功返回 sessionId */
+  addSession(res: Response, user: User) {
+    const sessionId = this.session.addSession(user);
+    if (sessionId) res.cookie('sessionId', sessionId);
+    return sessionId;
+  }
+
+  updateSession(req: Request) {
+    const sessionId = req.cookies.sessionId;
+    return this.session.updateSession(sessionId);
   }
 }
