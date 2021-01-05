@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { NunjucksModule } from './nunjucks';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
+import { PersonModule } from './person/person.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { LoginModule } from './login/login.module';
     }),
     HomeModule,
     LoginModule,
+    PersonModule,
   ],
   controllers: [
     AppController,
