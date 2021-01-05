@@ -1,3 +1,7 @@
+:root {
+  --main-width: 1360px;
+}
+
 html, body {
   margin: 0;
   height: 100%;

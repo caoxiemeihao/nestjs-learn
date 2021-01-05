@@ -26,7 +26,10 @@ export class FsStore<D extends KVpair> {
     return data as KVpair;
   }
 
-  // 基本数据结构默认 { createTime: number, updateTime: number, data: any }
+  /**
+   * 找不到 data 返回 undefined
+   * -- 基本数据结构默认 { createTime: number, updateTime: number, data: any }
+   */
   get(key = 'data'): D | undefined {
     return this.readFileSync()[key];
   }
