@@ -1,16 +1,19 @@
-#### 20-12-12
+# Nest.js Learn 😋
 
-- 已经实现的功能
+### 技术栈
+- `Nest.js` `Nunjucks` `Vue@3.0`
 
-  1. 自定义 module、service、controller 
-  2. 自定义装饰器实现 njk 模板片段自动包装 <html></html> 外壳
-  3. 集成 nunjucks 模板
+### 主要是练习 Nest.js 所以没有加入 typeorm
+- 基于文件实现的 cookie、session
+- 基于文件实现的 用户注册
+- 基于文件实现的 人员增删改查
+- 原生实现 `知乎热榜-top50` 爬取 (用在主页展示)
 
-- 接下来要做的东西
+---
 
-  1. 接入 typeorm 操作数据库
-  2. 自定义装饰器在 ts 中类型没弄明白怎么“反射”出来
-  3. nunjucks 模板尚未发挥完整功能 (和 nest.js 整合不是很优雅)
 
-#### 20-12-30
-- nunjucks 集成: https://stackoverflow.com/questions/56057228/how-do-i-use-nunjucks-template-in-nestjs-framework
+---
+
+> Note
+#### 20-12-30 Nunjucks 集成
+- https://stackoverflow.com/questions/56057228/how-do-i-use-nunjucks-template-in-nestjs-framework
