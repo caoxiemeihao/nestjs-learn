@@ -38,9 +38,9 @@
           <td>${+person.sex === 1 ? '男' : '女'}</td>
           <td>${person.remark}</td>
           <td style="width:194px;">
-            <button class="btn btn-sm btn-secondary">查看</button>
-            <button class="btn btn-sm btn-warning ml-2">编辑</button>
-            <button class="btn btn-sm btn-danger ml-2">删除</button>
+            <button class="btn btn-sm btn-secondary" @click="showModal('查看', person)">查看</button>
+            <button class="btn btn-sm btn-warning ml-2" @click="showModal('编辑', person)">编辑</button>
+            <button class="btn btn-sm btn-danger ml-2" @click="delPerson(person)">删除</button>
           </td>
         </tr>
       </tbody>

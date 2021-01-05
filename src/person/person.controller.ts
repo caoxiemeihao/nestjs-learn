@@ -15,9 +15,15 @@ export class PersonController {
   @Post('get')
   getPerson(@Req() req: Request): ResponseModel<Array<Person> | Person> {
     const { mobile } = req.body;
-    const data = this.service.getPerson(mobile);
+    const result = this.service.getPerson(mobile);
 
-    return new SuccessModel({ data });
+    return new SuccessModel({
+      data: Array.isArray(result)
+        ? result
+            .filter((r) => r.status !== /* 过滤掉已删除 */ 9)
+            .sort((r1, r2) => r2.update_time - r1.update_time)
+        : result,
+    });
   }
 
   @Post('add')

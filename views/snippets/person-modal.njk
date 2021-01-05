@@ -3,8 +3,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel">${modal.title}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" @click="showModal('关闭')">×</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="showModal('关闭')">
+          <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
@@ -74,7 +74,7 @@
         </form>
 
       </div>
-      <div class="modal-footer">
+      <div v-if="['新增', '编辑'].includes(cmd)" class="modal-footer">
         <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="showModal('关闭')">Close</button> -->
         <button type="button" class="btn btn-primary" @click="submit">提交</button>
       </div>
