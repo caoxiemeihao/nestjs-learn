@@ -1,7 +1,7 @@
 # Nest.js Learn 😋
 
 ### 技术栈
-- `Nest.js` `Nunjucks` `Vue@3.0`
+- `Nest.js` `Nunjucks` `Vue@3.0` `Bootstrap@4.0`
 
 ### 主要是练习 Nest.js 所以没有加入 typeorm
 - 基于文件实现的 cookie、session
