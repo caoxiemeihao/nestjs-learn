@@ -15,7 +15,10 @@ main {
 }
 
 .left-content {
-
+  /* min-height: 400px; display: flex 下和左侧会自动等高布局 */
+  box-shadow: 0 1px 6px -2px #ccc;
+  border-radius: .25rem;
+  overflow: hidden;
 }
 
 .right-content {

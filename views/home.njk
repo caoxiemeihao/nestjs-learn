@@ -13,8 +13,8 @@
 </header>
 <main class="d-flex pt-4 pb-4">
 
-  <div class="left-content flex-fill mr-4">
-    <table class="table mt-2" id="vue-person-list">
+  <div class="left-content flex-fill mr-4" id="vue-person">
+    <table class="table">
       <thead class="thead-dark">
         <tr>
           <th scope="col">序号</th>
@@ -22,19 +22,21 @@
           <th scope="col">电话</th>
           <th scope="col">年龄</th>
           <th scope="col">性别</th>
+          <th scope="col">备注</th>
           <th scope="col">
             <span>操作</span>
-            <button class="btn btn-sm btn-info ml-4">新增</button>
+            <button class="btn btn-sm btn-primary ml-4" @click="showModal('新增')">新增</button>
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(person, idx) of persons" :key="idx">
           <th scope="row">${idx + 1}</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
+          <td>${person.name}</td>
+          <td>${person.mobile}</td>
+          <td>${person.age}</td>
+          <td>${+person.sex === 1 ? '男' : '女'}</td>
+          <td>${person.remark}</td>
           <td style="width:194px;">
             <button class="btn btn-sm btn-secondary">查看</button>
             <button class="btn btn-sm btn-warning ml-2">编辑</button>
@@ -45,6 +47,11 @@
     </table>
 
     <div v-if="!persons.length" class="text-center mt-5 h2" style="color:#999;">暂无数据</div>
+
+    <!-- 添加、编辑、查看 弹窗 -->
+    <div v-if="modal.visible">
+      {% include "snippets/person-modal.njk" %}
+    </div>
 
   </div>
 

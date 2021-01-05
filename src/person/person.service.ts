@@ -65,12 +65,9 @@ export class PersonService {
       sex,
       // 可选值
       school,
-      graduation_time,
       science,
-      skill,
-      position,
-      work_years,
       email,
+      remark,
     } = req.body as Person;
 
     if (!name) return '姓名不能为空';
@@ -85,12 +82,9 @@ export class PersonService {
       sex: +sex as any,
       // 可选值
       school,
-      graduation_time,
       science,
-      skill,
-      position,
-      work_years,
       email,
+      remark,
     });
   }
 }
