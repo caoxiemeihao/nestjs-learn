@@ -12,7 +12,7 @@ export type KVpair = Record<string, any>;
 const TAG = '[fs-store.ts]';
 
 export class FsStore<D extends KVpair> {
-  static STORE_DIR = join(__dirname, '../cache');
+  static STORE_DIR = join(__dirname, '../../.cache');
 
   constructor(private path: string) {}
 
