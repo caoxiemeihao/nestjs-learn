@@ -2,11 +2,15 @@ header {
   background-color: aliceblue;
   height: 60px;
   line-height: 60px;
-  padding: 0 15px;
+}
+
+.header-content {
+  max-width: var(--main-width);
+  margin: 0 auto;
 }
 
 main {
-  max-width: 1360px;
+  max-width: var(--main-width);
   margin: 0 auto;
 }
 
