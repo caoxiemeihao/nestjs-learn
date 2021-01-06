@@ -16,18 +16,11 @@ export class SessionService {
     return `${Date.now()}-${~~(Math.random() * 10000)}`;
   }
 
-  private store: FsStore<Array<RecordSession>>;
-  genSessionId = SessionService.genSessionId;
+  static store = new FsStore<Array<RecordSession>>(
+    join(FsStore.STORE_DIR, 'session.json'),
+  );
 
-  constructor() {
-    this.store = new FsStore(join(FsStore.STORE_DIR, 'session.json'));
-
-    SessionService.genSessionId.toString = function () {
-      return this(); // 能当方法用，也能到属性用
-    };
-  }
-
-  getSession(
+  static getSession(
     sessionId = '',
   ): { session: RecordSession | undefined; sessions: Array<RecordSession> } {
     const sessions = this.store.get() || [];
@@ -38,8 +31,7 @@ export class SessionService {
     };
   }
 
-  /** 返回 sessionId 或者失败 */
-  addSession(user: User): false | string {
+  static addSession(user: User): false | string {
     let { sessions } = this.getSession();
     const sessionId = this.genSessionId();
     sessions = sessions.filter(
@@ -54,12 +46,29 @@ export class SessionService {
     return this.store.set('data', sessions) ? sessionId : false;
   }
 
-  /** 更新 session 中的时间戳 */
-  updateSession(sessionId: string): boolean {
+  static updateSession(sessionId: string): boolean {
     const { session, sessions } = this.getSession(sessionId);
     if (session) {
       session.updateTime = Date.now();
     }
     return session ? this.store.set('data', sessions) : false;
   }
+
+  private store = SessionService.store;
+
+  constructor() {
+    SessionService.genSessionId.toString = function () {
+      return this(); // 能当方法用，也能到属性用
+    };
+  }
+
+  genSessionId = SessionService.genSessionId;
+
+  getSession = SessionService.getSession;
+
+  /** 返回 sessionId 或者失败 */
+  addSession = SessionService.addSession;
+
+  /** 更新 session 中的时间戳 */
+  updateSession = SessionService.updateSession;
 }
