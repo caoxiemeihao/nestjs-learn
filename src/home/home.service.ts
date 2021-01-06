@@ -9,10 +9,10 @@ export class HomeService {
   constructor(private session: SessionService) {}
 
   renderData(req: Request) {
-    const user = this.getUser(req);
+    // const user = this.getUser(req);
     return {
       name: 'home.service.HomerSerivce',
-      user,
+      // user,
       zhihuBillboards: getZhihuBillboard(),
     };
   }
@@ -20,6 +20,8 @@ export class HomeService {
   /**
    * @todo 21-01-04
    * 当前用笨办法去 session 中取出用户，后期通过装饰器注入
+   *
+   * @deprecated 21-01-06 通过 src/shared/decorators.ts - @SessionUser() user 实现
    */
   getUser(req: Request): User {
     const sessionId = req.cookies.sessionId;
