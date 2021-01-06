@@ -7,6 +7,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { Request, Response } from 'express';
+import { SessionService } from './session.service';
 
 @Injectable()
 export class LoginInterceptor implements NestInterceptor {
@@ -19,8 +20,9 @@ export class LoginInterceptor implements NestInterceptor {
     const res: Response = context.getArgs().find((arg) => arg.writable);
 
     const { sessionId } = req.cookies;
+    const { session } = SessionService.getSession(sessionId);
 
-    if (!sessionId) {
+    if (!session?.user?.username) {
       // res.redirect('/login'); // 这么做会提前结束 http 响应，导致之后 NestJs 对 res 的一系列操作引起报错
       res.statusCode = 302;
       res.setHeader('Location', '/login');
